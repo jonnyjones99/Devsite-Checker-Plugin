@@ -15,7 +15,7 @@
 	height: 400%;
 	background: linear-gradient(0.33turn, #e80025, #ffd9df, #f6c492, #818ab5);
 	background-size: 100% 100%;
-	animation: GradientBackground 12s ease infinite;
+	animation: devsiteWarningCSSanimation 12s ease infinite;
 	position: absolute;
 	z-index: 1;
 }
@@ -25,7 +25,7 @@
 	z-index: 999;
 }
 
-@keyframes GradientBackground {
+@keyframes devsiteWarningCSSanimation {
 	0% {
 		transform: translate(0, -50%);
 	}

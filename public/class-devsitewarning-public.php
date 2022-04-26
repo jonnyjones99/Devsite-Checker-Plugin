@@ -64,7 +64,6 @@ class Devsitewarning_Public
 	{
 
 		/**
-		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
 		 * defined in Devsitewarning_Loader as all of the hooks are defined
@@ -87,7 +86,6 @@ class Devsitewarning_Public
 	{
 
 		/**
-		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
 		 * defined in Devsitewarning_Loader as all of the hooks are defined
@@ -102,21 +100,22 @@ class Devsitewarning_Public
 	}
 }
 
+
+
 // Check user is admin
-function is_admin_user()
+function devsitewarning_admin_checker()
 {
 	return current_user_can('manage_options');
 }
 
-// If user is admin
-// And the primary domain includes .wpengine.com
-// Show the warning
-
 add_action('wp_footer', 'devsite_Warning');
 function devsite_Warning()
 {
-	if (is_admin_user()) {
+	// If user is admin
+	if (devsitewarning_admin_checker()) {
+		// And the primary domain includes .wpengine.com
 		if (strpos($_SERVER['HTTP_HOST'], 'wpengine.com') !== false) {
+			// Show the warning
 			echo '<div class="devsite">';
 			echo '<span class="devsite-txt">';
 			echo 'development';

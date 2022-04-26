@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Devsite Warning
  * Plugin URI:        #
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Simple plugin that tells if you are on a dev site for wpengine.
  * Version:           1.0.0
  * Author:            Jonny Jones
  * Author URI:        #
@@ -26,7 +26,7 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if (!defined('WPINC')) {
 	die;
 }
 
@@ -35,14 +35,15 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'DEVSITEWARNING_VERSION', '1.0.0' );
+define('DEVSITEWARNING_VERSION', '1.0.0');
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-devsitewarning-activator.php
  */
-function activate_devsitewarning() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-devsitewarning-activator.php';
+function activate_devsitewarning()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-devsitewarning-activator.php';
 	Devsitewarning_Activator::activate();
 }
 
@@ -50,19 +51,20 @@ function activate_devsitewarning() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-devsitewarning-deactivator.php
  */
-function deactivate_devsitewarning() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-devsitewarning-deactivator.php';
+function deactivate_devsitewarning()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-devsitewarning-deactivator.php';
 	Devsitewarning_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_devsitewarning' );
-register_deactivation_hook( __FILE__, 'deactivate_devsitewarning' );
+register_activation_hook(__FILE__, 'activate_devsitewarning');
+register_deactivation_hook(__FILE__, 'deactivate_devsitewarning');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-devsitewarning.php';
+require plugin_dir_path(__FILE__) . 'includes/class-devsitewarning.php';
 
 /**
  * Begins execution of the plugin.
@@ -73,10 +75,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-devsitewarning.php';
  *
  * @since    1.0.0
  */
-function run_devsitewarning() {
+function run_devsitewarning()
+{
 
 	$plugin = new Devsitewarning();
 	$plugin->run();
-
 }
 run_devsitewarning();

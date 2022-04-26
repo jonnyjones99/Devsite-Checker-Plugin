@@ -20,7 +20,8 @@
  * @subpackage Devsitewarning/admin
  * @author     Jonny Jones <#>
  */
-class Devsitewarning_Admin {
+class Devsitewarning_Admin
+{
 
 	/**
 	 * The ID of this plugin.
@@ -47,11 +48,11 @@ class Devsitewarning_Admin {
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct($plugin_name, $version)
+	{
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
 	}
 
 	/**
@@ -59,10 +60,10 @@ class Devsitewarning_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles()
+	{
 
 		/**
-		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
 		 * defined in Devsitewarning_Loader as all of the hooks are defined
@@ -73,8 +74,7 @@ class Devsitewarning_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/devsitewarning-admin.css', array(), $this->version, 'all' );
-
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/devsitewarning-admin.css', array(), $this->version, 'all');
 	}
 
 	/**
@@ -82,10 +82,10 @@ class Devsitewarning_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts()
+	{
 
 		/**
-		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
 		 * defined in Devsitewarning_Loader as all of the hooks are defined
@@ -96,8 +96,6 @@ class Devsitewarning_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/devsitewarning-admin.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/devsitewarning-admin.js', array('jquery'), $this->version, false);
 	}
-
 }
