@@ -117,7 +117,6 @@ function devsite_Warning()
 		if (strpos($_SERVER['HTTP_HOST'], 'wpengine.com') == true) {
 			// 	WP plugin way of using partials
 			// 	Create the warning
-
 			require(plugin_dir_path(__FILE__) . 'partials/devsitewarning-public-display.php');
 		}
 	}

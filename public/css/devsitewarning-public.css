@@ -4,7 +4,7 @@
 	overflow: hidden;
 	position: fixed;
 	left: 2rem;
-	top: 2rem;
+	bottom: 2rem;
 	display: grid;
 	place-content: center;
 	z-index: 999;
