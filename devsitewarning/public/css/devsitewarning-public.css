@@ -1,0 +1,40 @@
+.devsite {
+	width: 200px;
+	height: 50px;
+	overflow: hidden;
+	position: fixed;
+	left: 2rem;
+	top: 2rem;
+	display: grid;
+	place-content: center;
+	z-index: 999;
+}
+
+.devsite-bg {
+	width: 400%;
+	height: 400%;
+	background: linear-gradient(0.33turn, #e80025, #ffd9df, #f6c492, #818ab5);
+	background-size: 100% 100%;
+	animation: GradientBackground 12s ease infinite;
+	position: absolute;
+	z-index: 1;
+}
+
+.devsite-txt {
+	position: relative;
+	z-index: 999;
+}
+
+@keyframes GradientBackground {
+	0% {
+		transform: translate(0, -50%);
+	}
+
+	50% {
+		transform: translate(-75%, 0);
+	}
+
+	100% {
+		transform: translate(0, -50%);
+	}
+}
