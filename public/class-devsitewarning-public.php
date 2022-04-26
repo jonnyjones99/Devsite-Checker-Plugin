@@ -114,8 +114,11 @@ function devsite_Warning()
 	// If user is admin
 	if (devsitewarning_admin_checker()) {
 		// And the primary domain includes .wpengine.com
-		if (strpos($_SERVER['HTTP_HOST'], 'wpengine.com') !== false) {
-			include 'public/partials/devsitewarning-public-display.php';
+		if (strpos($_SERVER['HTTP_HOST'], 'wpengine.com') == true) {
+			// 	WP plugin way of using partials
+			// 	Create the warning
+
+			require(plugin_dir_path(__FILE__) . 'partials/devsitewarning-public-display.php');
 		}
 	}
 }
