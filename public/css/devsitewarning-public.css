@@ -1,4 +1,4 @@
-.devsite {
+.devsite-warning {
 	width: 200px;
 	height: 50px;
 	overflow: hidden;
@@ -10,7 +10,7 @@
 	z-index: 999;
 }
 
-.devsite-bg {
+.devsite-warning__bg {
 	width: 400%;
 	height: 400%;
 	background: linear-gradient(0.33turn, #e80025, #ffd9df, #f6c492, #818ab5);
@@ -20,7 +20,7 @@
 	z-index: 1;
 }
 
-.devsite-txt {
+.devsite-warning__txt {
 	position: relative;
 	z-index: 999;
 }

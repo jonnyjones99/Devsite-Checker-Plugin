@@ -14,3 +14,11 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+
+
+<div class="devsite-warning">
+    <div class="devsite-warning__txt">
+        Development Site
+    </div>
+    <div class="devsite-warning__bg"></div>
+</div>

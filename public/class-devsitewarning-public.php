@@ -115,13 +115,7 @@ function devsite_Warning()
 	if (devsitewarning_admin_checker()) {
 		// And the primary domain includes .wpengine.com
 		if (strpos($_SERVER['HTTP_HOST'], 'wpengine.com') !== false) {
-			// Show the warning
-			echo '<div class="devsite">';
-			echo '<span class="devsite-txt">';
-			echo 'development';
-			echo '</span>';
-			echo '<div class="devsite-bg"></div>';
-			echo '</div>';
+			include 'public/partials/devsitewarning-public-display.php';
 		}
 	}
 }
