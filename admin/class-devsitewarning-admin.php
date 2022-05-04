@@ -99,3 +99,127 @@ class Devsitewarning_Admin
 		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/devsitewarning-admin.js', array('jquery'), $this->version, false);
 	}
 }
+
+
+
+class DevsiteChecker
+{
+	private $devsite_checker_options;
+
+	public function __construct()
+	{
+		add_action('admin_menu', array($this, 'devsite_checker_add_plugin_page'));
+		add_action('admin_init', array($this, 'devsite_checker_page_init'));
+	}
+
+	public function devsite_checker_add_plugin_page()
+	{
+		add_options_page(
+			'Devsite Checker', // page_title
+			'Devsite Checker', // menu_title
+			'manage_options', // capability
+			'devsite-checker', // menu_slug
+			array($this, 'devsite_checker_create_admin_page') // function
+		);
+	}
+
+	public function devsite_checker_create_admin_page()
+	{
+		$this->devsite_checker_options = get_option('devsite_checker_option_name'); ?>
+
+		<div class="wrap">
+			<h2>Devsite Checker</h2>
+			<p></p>
+			<?php settings_errors(); ?>
+
+			<form method="post" action="options.php">
+				<?php
+				settings_fields('devsite_checker_option_group');
+				do_settings_sections('devsite-checker-admin');
+				submit_button();
+				?>
+			</form>
+		</div>
+	<?php }
+
+	public function devsite_checker_page_init()
+	{
+		register_setting(
+			'devsite_checker_option_group', // option_group
+			'devsite_checker_option_name', // option_name
+			array($this, 'devsite_checker_sanitize') // sanitize_callback
+		);
+
+		add_settings_section(
+			'devsite_checker_setting_section', // id
+			'Settings', // title
+			array($this, 'devsite_checker_section_info'), // callback
+			'devsite-checker-admin' // page
+		);
+
+		add_settings_field(
+			'live_site_url_0', // id
+			'Live site URL', // title
+			array($this, 'live_site_url_0_callback'), // callback
+			'devsite-checker-admin', // page
+			'devsite_checker_setting_section' // section
+		);
+
+		add_settings_field(
+			'warning_position_1', // id
+			'Warning Position', // title
+			array($this, 'warning_position_1_callback'), // callback
+			'devsite-checker-admin', // page
+			'devsite_checker_setting_section' // section
+		);
+	}
+
+	public function devsite_checker_sanitize($input)
+	{
+		$sanitary_values = array();
+		if (isset($input['live_site_url_0'])) {
+			$sanitary_values['live_site_url_0'] = sanitize_text_field($input['live_site_url_0']);
+		}
+
+		if (isset($input['warning_position_1'])) {
+			$sanitary_values['warning_position_1'] = $input['warning_position_1'];
+		}
+
+		return $sanitary_values;
+	}
+
+	public function devsite_checker_section_info()
+	{
+	}
+
+	public function live_site_url_0_callback()
+	{
+		printf(
+			'<input class="regular-text" type="text" name="devsite_checker_option_name[live_site_url_0]" id="live_site_url_0" value="%s">',
+			isset($this->devsite_checker_options['live_site_url_0']) ? esc_attr($this->devsite_checker_options['live_site_url_0']) : ''
+		);
+	}
+
+	public function warning_position_1_callback()
+	{
+	?> <select name="devsite_checker_option_name[warning_position_1]" id="warning_position_1">
+			<?php $selected = (isset($this->devsite_checker_options['warning_position_1']) && $this->devsite_checker_options['warning_position_1'] === 'topleft') ? 'selected' : ''; ?>
+			<option value="topleft" <?php echo $selected; ?>>Top Left</option>
+			<?php $selected = (isset($this->devsite_checker_options['warning_position_1']) && $this->devsite_checker_options['warning_position_1'] === 'topright') ? 'selected' : ''; ?>
+			<option value="topright" <?php echo $selected; ?>>Top Right</option>
+			<?php $selected = (isset($this->devsite_checker_options['warning_position_1']) && $this->devsite_checker_options['warning_position_1'] === 'bottomleft') ? 'selected' : ''; ?>
+			<option value="bottomleft" <?php echo $selected; ?>>Bottom Left</option>
+			<?php $selected = (isset($this->devsite_checker_options['warning_position_1']) && $this->devsite_checker_options['warning_position_1'] === 'bottomright') ? 'selected' : ''; ?>
+			<option value="bottomright" <?php echo $selected; ?>>Bottom Right</option>
+		</select> <?php
+				}
+			}
+			if (is_admin())
+				$devsite_checker = new DevsiteChecker();
+
+/* 
+ * Retrieve these value with:
+ * $devsite_checker_options = get_option( 'devsite_checker_option_name' ); // Array of All Options
+ * $live_site_url_0 = $devsite_checker_options['live_site_url_0']; // Live site URL
+ * $warning_position_1 = $devsite_checker_options['warning_position_1']; // Warning Position
+ */

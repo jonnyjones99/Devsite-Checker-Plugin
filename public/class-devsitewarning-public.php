@@ -101,23 +101,89 @@ class Devsitewarning_Public
 }
 
 
-
 // Check user is admin
 function devsitewarning_admin_checker()
 {
 	return current_user_can('manage_options');
 }
 
-add_action('wp_footer', 'devsite_Warning');
+
 function devsite_Warning()
 {
-	// If user is admin
-	if (devsitewarning_admin_checker()) {
-		// And the primary domain includes .wpengine.com
-		if (strpos($_SERVER['HTTP_HOST'], 'wpengine.com') == true) {
-			// 	WP plugin way of using partials
-			// 	Create the warning
-			require(plugin_dir_path(__FILE__) . 'partials/devsitewarning-public-display.php');
+	// Get the plugin options
+	$devsite_checker_options = get_option('devsite_checker_option_name'); // Array of All Options
+	$warning_position_1 = $devsite_checker_options['warning_position_1']; // Warning Position
+	$live_site_url_0 = $devsite_checker_options['live_site_url_0']; // Live site URL
+
+	$best_guess = '';
+
+	// Get current site url
+	$siteurl = $_SERVER['HTTP_HOST'];
+	// By default variable is set to false (not live)
+	$is_live = false;
+	// Now lets compare the URL defined in the plugin options to the current URL
+	$compare_url = strcmp($siteurl, $live_site_url_0);
+	if ($compare_url === 0) {
+		// If "$siteurl" is the same as "$live_site_url_0 (defined in the options)"
+		// Set the variable to be true
+		$is_live = true;
+	}
+
+	// If the site is live
+	if ($is_live === true) {
+		// If user is an admin
+		if (devsitewarning_admin_checker()) {
+			// Display our live warning
+			require(plugin_dir_path(__FILE__) . 'partials/devsitewarning-live_warning.php');
+		}
+	}
+
+	// If the current url doesn't match the URL defined in the setting page we can assume it's a dev site
+	if ($is_live == false) {
+		// Lets quickly check it's not got a .local domain first
+		$local = strpos($_SERVER['HTTP_HOST'], '.local');
+		if ($local == true) {
+			// Show local warning
+			require(plugin_dir_path(__FILE__) . 'partials/devsitewarning-local_warning.php');
+		} else {
+			// Otherwise we know it's a dev site.
+			require(plugin_dir_path(__FILE__) . 'partials/devsitewarning-dev_warning.php');
+		}
+	}
+
+	// Okay, we don't have anything in our liveurl field so lets try and work out if it's a dev site or not
+	if (empty($live_site_url_0)) {
+		$je = strpos($_SERVER['HTTP_HOST'], '.je');
+		$com = strpos($_SERVER['HTTP_HOST'], '.com');
+		$couk = strpos($_SERVER['HTTP_HOST'], '.co.uk');
+		$orgje = strpos($_SERVER['HTTP_HOST'], '.org.je');
+		$gg = strpos($_SERVER['HTTP_HOST'], '.gg');
+		$fr = strpos($_SERVER['HTTP_HOST'], '.fr');
+
+		$best_guess = 'Best Guess:';
+
+		$live_domain_check = $je || $com || $couk || $orgje || $gg || $fr;
+
+		// If primary domain is a live domain
+		if ($live_domain_check == true) {
+			// Create Live warning
+			require(plugin_dir_path(__FILE__) . 'partials/devsitewarning-live_warning.php');
+		}
+
+		// If primary domain is a .local domain
+		if ($local == true) {
+			// Show local warning
+			require(plugin_dir_path(__FILE__) . 'partials/devsitewarning-local_warning.php');
+		}
+
+		$wpengine_dev = strpos($_SERVER['HTTP_HOST'], '.wpengine.com');
+		// If primary domain is a .wpengine domain
+		if ($wpengine_dev == true) {
+			// Show local warning
+			require(plugin_dir_path(__FILE__) . 'partials/devsitewarning-dev_warning.php');
 		}
 	}
 }
+
+// Call our function in the footer
+add_action('wp_footer', 'devsite_Warning');
