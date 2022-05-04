@@ -27,6 +27,9 @@
                                         case 'bottomright':
                                             echo "bottom: 2rem; right: 2rem;";
                                             break;
+                                        default:
+                                            echo "bottom: 2rem; left: 2rem;";
+                                            break;
                                     } ?>">
     <div class="devsite-warning__txt">
         <?php

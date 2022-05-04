@@ -6,6 +6,7 @@
 	display: grid;
 	place-content: center;
 	z-index: 999;
+	padding: 1rem;
 }
 
 .devsite-warning__bg {
