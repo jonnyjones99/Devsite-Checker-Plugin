@@ -203,14 +203,14 @@ class DevsiteChecker
 	public function warning_position_1_callback()
 	{
 	?> <select name="devsite_checker_option_name[warning_position_1]" id="warning_position_1">
-			<?php $selected = (isset($this->devsite_checker_options['warning_position_1']) && $this->devsite_checker_options['warning_position_1'] === 'topleft') ? 'selected' : ''; ?>
-			<option value="topleft" <?php echo $selected; ?>>Top Left</option>
-			<?php $selected = (isset($this->devsite_checker_options['warning_position_1']) && $this->devsite_checker_options['warning_position_1'] === 'topright') ? 'selected' : ''; ?>
-			<option value="topright" <?php echo $selected; ?>>Top Right</option>
 			<?php $selected = (isset($this->devsite_checker_options['warning_position_1']) && $this->devsite_checker_options['warning_position_1'] === 'bottomleft') ? 'selected' : ''; ?>
 			<option value="bottomleft" <?php echo $selected; ?>>Bottom Left</option>
 			<?php $selected = (isset($this->devsite_checker_options['warning_position_1']) && $this->devsite_checker_options['warning_position_1'] === 'bottomright') ? 'selected' : ''; ?>
 			<option value="bottomright" <?php echo $selected; ?>>Bottom Right</option>
+			<?php $selected = (isset($this->devsite_checker_options['warning_position_1']) && $this->devsite_checker_options['warning_position_1'] === 'topleft') ? 'selected' : ''; ?>
+			<option value="topleft" <?php echo $selected; ?>>Top Left</option>
+			<?php $selected = (isset($this->devsite_checker_options['warning_position_1']) && $this->devsite_checker_options['warning_position_1'] === 'topright') ? 'selected' : ''; ?>
+			<option value="topright" <?php echo $selected; ?>>Top Right</option>
 		</select> <?php
 				}
 			}
